@@ -4,6 +4,10 @@ class TransactionForm extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
+  final void Function(String, double) addNewTransaction;
+
+  TransactionForm(this.addNewTransaction);
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,10 +28,8 @@ class TransactionForm extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 FlatButton(
-                  onPressed: () {
-                    print(titleController.text);
-                    print(amountController.text);
-                  },
+                  onPressed: () => addNewTransaction(titleController.text,
+                      double.tryParse(amountController.text) ?? 0.0),
                   child: Text('New Transaction'),
                   textColor: Colors.purple,
                 )
